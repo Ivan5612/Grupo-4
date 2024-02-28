@@ -1,0 +1,70 @@
+const int pinRojo = D3;
+const int pinAmarillo = D1;
+const int pinVerde = D2;
+const int pinBotonParo = D7;//NEGADO
+const int pinBotonMantenimiento = D6;//NEGADO
+int A,B;
+int POT = 0;
+
+bool mantenimientoActivo = false;
+bool amarilloEncendido = false;
+bool emergenciaActiva = false; 
+
+void setup() {
+ pinMode(pinRojo, OUTPUT);
+ pinMode(pinAmarillo, OUTPUT);
+ pinMode(pinVerde, OUTPUT);
+ pinMode(pinBotonParo, INPUT); 
+ pinMode(pinBotonMantenimiento, INPUT);
+ pinMode(A0, INPUT);
+ Serial.begin(9600);
+}
+
+
+void loop() {
+ POT = analogRead(A0); 
+ Serial.println(POT);
+ 
+A=digitalRead(pinBotonParo);
+B=digitalRead(pinBotonMantenimiento);
+ if (A == LOW) {
+  while (true){
+ digitalWrite(pinRojo, LOW);
+ digitalWrite(pinAmarillo, LOW);
+ digitalWrite(pinVerde, LOW);
+ delay (500);
+ 
+ }
+ }
+ else{
+  if (B== LOW){
+     while (true){
+ digitalWrite(pinRojo, LOW);
+ digitalWrite(pinVerde, LOW);
+ digitalWrite(pinAmarillo, HIGH);
+ delay (500);
+ digitalWrite(pinAmarillo, LOW);
+ delay (500);
+
+  }}
+  else{
+   digitalWrite(pinRojo, HIGH);
+ digitalWrite(pinAmarillo, LOW);
+ digitalWrite(pinVerde, LOW);
+ delay(50*POT);
+ digitalWrite(pinRojo, HIGH); digitalWrite(pinAmarillo, HIGH);
+ digitalWrite(pinVerde, LOW);
+ delay(10*POT);
+ digitalWrite(pinRojo, LOW);
+ digitalWrite(pinAmarillo, LOW);
+ digitalWrite(pinVerde, HIGH);
+ delay(30*POT);
+ digitalWrite(pinRojo, LOW);
+ digitalWrite(pinAmarillo, HIGH);
+ digitalWrite(pinVerde, LOW);
+ delay(10*POT);
+ }
+}
+}
+
+ 
